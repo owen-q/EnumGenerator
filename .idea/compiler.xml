@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default">
+        <processorPath>
+          <entry name="$PROJECT_DIR$/../practice/libs/enum-generator-1.0-SNAPSHOT.jar" />
+        </processorPath>
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="enum-generator_processed" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

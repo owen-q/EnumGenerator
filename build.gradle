@@ -1,0 +1,134 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.18"
+    }
+}
+
+apply plugin: 'java-library'
+apply plugin: "net.ltgt.apt"
+apply plugin: 'idea'
+
+group 'io.owen'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+ext{
+    slf4jVersion = '1.7.21'
+    log4j2Version = '2.5'
+    commonsLogging = '1.2'
+    nettyVersion='4.1.25.Final'
+    reactorCoreVersion='3.1.8.RELEASE'
+}
+
+
+/*
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+//            exclude 'log4j2.xml'
+        }
+    }
+}
+*/
+
+dependencies {
+
+    // SLF4J-Log4j2
+//    compile("commons-logging:commons-logging:${commonsLogging}")
+//    compile("org.slf4j:slf4j-api:${slf4jVersion}")
+//    compile("org.apache.logging.log4j:log4j-api:${log4j2Version}")
+//    compile("org.apache.logging.log4j:log4j-core:${log4j2Version}")
+//    compile("org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}")
+
+//        compile("org.slf4j:slf4j-api:${slf4jVersion}")
+//    compileOnly("commons-logging:commons-logging:${commonsLogging}")
+//    compileOnly("org.apache.logging.log4j:log4j-api:${log4j2Version}")
+//    compileOnly("org.apache.logging.log4j:log4j-core:${log4j2Version}")
+//    compileOnly("org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}")
+
+
+//    runtime("commons-logging:commons-logging:${commonsLogging}")
+//    runtime("org.slf4j:slf4j-api:${slf4jVersion}")
+//    runtime("org.apache.logging.log4j:log4j-api:${log4j2Version}")
+//    runtime("org.apache.logging.log4j:log4j-core:${log4j2Version}")
+//    runtime("org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}")
+
+
+//    compileOnly("commons-logging:commons-logging:${commonsLogging}")
+//    testCompile("commons-logging:commons-logging:${commonsLogging}")
+//    annotationProcessor("commons-logging:commons-logging:${commonsLogging}")
+
+
+//    compileOnly("org.slf4j:slf4j-api:${slf4jVersion}")
+//    testCompile("org.slf4j:slf4j-api:${slf4jVersion}")
+//    annotationProcessor("org.slf4j:slf4j-api:${slf4jVersion}")
+
+
+//    compileOnly("org.apache.logging.log4j:log4j-api:${log4j2Version}")
+//    testCompile("org.apache.logging.log4j:log4j-api:${log4j2Version}")
+//    annotationProcessor("org.apache.logging.log4j:log4j-api:${log4j2Version}")
+
+
+//    compileOnly("org.apache.logging.log4j:log4j-core:${log4j2Version}")
+//    testCompile("org.apache.logging.log4j:log4j-core:${log4j2Version}")
+//    annotationProcessor("org.apache.logging.log4j:log4j-core:${log4j2Version}")
+
+
+//    compileOnly("org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}")
+//    testCompile("org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}")
+//    annotationProcessor("org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}")
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.6'
+
+    compile group: 'com.google.auto.service', name: 'auto-service', version: '1.0-rc4'
+    annotationProcessor group: 'com.google.auto.service', name: 'auto-service', version: '1.0-rc4'
+
+}
+
+/*
+jar {
+    manifest {
+        attributes 'Title': 'EnumGenerator', 'Version': 1.0
+    }
+
+    baseName 'EnumGenerator'
+    dependsOn configurations.runtime
+    from {
+        configurations.compile.collect {it.isDirectory()? it: zipTree(it)}
+    }
+
+}
+*/
+
+
+
+task deploy(type: Copy){
+    from "${buildDir}/libs"
+    into "/Users/owen/work/practice/libs"
+}
+
+task owen{
+    dependsOn 'clean'
+    dependsOn 'build'
+    dependsOn 'deploy'
+
+    tasks.findByName('build').mustRunAfter('clean')
+    tasks.findByName('deploy').mustRunAfter('build')
+}
+
